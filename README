@@ -1,0 +1,71 @@
+Acme-FixIO Version 0.01
+
+Acme::FixIO - Workaround for Windows chcp 65001 UTF-8 output bug
+
+SYNOPSIS
+
+    use Acme::FixIO;
+
+    print chr(300) x 3, chr(301), "UVW\n";
+
+DESCRIPTION
+
+    This is the underlying problem:
+    The last octet is repeated when Perl outputs a UTF-8 encoded string in
+    cmd.exe, chcp 65001
+
+    Two StackOverflow articles with basically the same problem:
+
+    http://stackoverflow.com/questions/23416075
+    http://stackoverflow.com/questions/25585248
+
+    This is caused by a bug in Windows. When writing to a console set to code
+    page 65001, WriteFile() returns the number of characters written instead
+    of the number of bytes.
+
+    Workaround:
+
+    Inject a binmode(STDOUT, ':unix:encoding(utf8):crlf') into the perl program
+
+INSTALLATION
+
+    To install this module, run the following commands:
+
+	perl Makefile.PL
+	make
+	make test
+	make install
+
+SUPPORT AND DOCUMENTATION
+
+    After installing, you can find documentation for this module with the
+    perldoc command.
+
+    perldoc Acme::FixIO
+
+You can also look for information at:
+
+    RT, CPAN's request tracker
+        http://rt.cpan.org/NoAuth/Bugs.html?Dist=Acme-FixIO
+
+    AnnoCPAN, Annotated CPAN documentation
+        http://annocpan.org/dist/Acme-FixIO
+
+    CPAN Ratings
+        http://cpanratings.perl.org/d/Acme-FixIO
+
+    Search CPAN
+        http://search.cpan.org/dist/Acme-FixIO/
+
+
+AUTHOR
+
+    Klaus Eichner <klaus03@gmail.com>
+
+COPYRIGHT AND LICENSE
+
+    Copyright (C) 2014 by Klaus Eichner
+
+    All rights reserved. This program is free software; you can redistribute
+    it and/or modify it under the terms of the artistic license 2.0,
+    see http://www.opensource.org/licenses/artistic-license-2.0.php
