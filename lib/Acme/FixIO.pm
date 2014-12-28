@@ -7,9 +7,9 @@ require Exporter;
 our @ISA       = qw(Exporter);
 our @EXPORT    = qw();
 our @EXPORT_OK = qw();
-our $VERSION   = '0.01';
 
-binmode(STDOUT, ':unix:encoding(utf8):crlf') or die "Can't binmode because $!";
+binmode(STDOUT, ':unix:encoding(utf8):crlf') or die "Can't binmode STDOUT because $!";
+binmode(STDERR, ':unix:encoding(utf8):crlf') or die "Can't binmode STDERR because $!";
 
 1;
 
